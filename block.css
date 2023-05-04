@@ -1,0 +1,7 @@
+.block div {
+  color: rgb(113, 118, 123);
+}
+
+.block:hover div {
+  color: rgb(249, 24, 128);
+}

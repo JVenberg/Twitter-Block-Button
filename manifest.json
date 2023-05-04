@@ -1,0 +1,25 @@
+{
+  "name": "Block Button",
+  "version": "0.0.1",
+  "manifest_version": 3,
+  "description": "This extension adds a button to block a Twitter user on every tweet.",
+  "homepage_url": "http://extensionizr.com",
+  "icons": {
+    "16": "block-twitter-icon.png",
+    "48": "block-twitter-icon.png",
+    "128": "block-twitter-icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://twitter.com/*"
+      ],
+      "js": [
+        "block.js"
+      ],
+      "css": [
+        "block.css"
+      ]
+    }
+  ]
+}
