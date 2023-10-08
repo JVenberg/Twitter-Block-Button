@@ -3,7 +3,7 @@
     const adjacentBtnObserver = new MutationObserver((mutations) => {
       for (const mutation of mutations) {
         for (const node of mutation.addedNodes) {
-          for (const adjancentBtn of getAdjacentButtons(node, '[role="link"][aria-label*="View" i]')) {
+          for (const adjancentBtn of getAdjacentButtons(node, '[role="link"][aria-label*="View" i], [role="button"][aria-label*="Bookmark" i]')) {
             addBlock(adjancentBtn);
           }
         }
@@ -38,7 +38,7 @@
 
   function addBlock(adjancentBtn) {
     const group = adjancentBtn.closest('[role="group"]');
-    if (!group.querySelector('.block')) {
+    if (!group?.querySelector('.block')) {
       adjancentBtn.after(buildBlockBtn(adjancentBtn));
     }
   }
