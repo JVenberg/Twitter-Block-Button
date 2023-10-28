@@ -3,7 +3,7 @@
     const adjacentBtnObserver = new MutationObserver((mutations) => {
       for (const mutation of mutations) {
         for (const node of mutation.addedNodes) {
-          for (const adjancentBtn of getAdjacentButtons(node, '[role="link"][aria-label*="View" i], [role="button"][aria-label*="Bookmark" i]')) {
+          for (const adjancentBtn of getAdjacentButtons(node, '[role="button"][aria-label*="Like" i]')) {
             addBlock(adjancentBtn);
           }
         }
