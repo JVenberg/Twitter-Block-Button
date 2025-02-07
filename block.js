@@ -21,6 +21,10 @@
     ).map(adjancentBtnChild => adjancentBtnChild.parentNode);
   }
 
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
   function buildBlockBtn(adjancentBtn) {
     const blockBtn = adjancentBtn.cloneNode(true);
     blockBtn.classList.add('block');
@@ -28,9 +32,11 @@
     blockBtn.querySelector('svg').closest('div').nextSibling?.remove();
     blockBtn.querySelector('div > div > div').style = '';
     blockBtn.querySelector('div').setAttribute('aria-label', 'Block');
-    blockBtn.addEventListener('click', () => {
+    blockBtn.addEventListener('click', async () => {
       blockBtn.closest('article').querySelector('[role="button"][aria-label*="More"]').click();
+      await sleep(0);
       document.querySelector('[role="menuitem"][data-testid="block"]').click();
+      await sleep(0);
       document.querySelector('[role="button"][data-testid="confirmationSheetConfirm"]').click();
     });
     return blockBtn;
