@@ -3,6 +3,7 @@
     const adjacentBtnObserver = new MutationObserver((mutations) => {
       for (const mutation of mutations) {
         for (const node of mutation.addedNodes) {
+          if (node.nodeType !== Node.ELEMENT_NODE) continue;
           for (const adjancentBtn of getAdjacentButtons(
             node,
             '[role="button"][aria-label*="Like" i]'
@@ -30,10 +31,11 @@
 
   // Add MutationObserver to detect new buttons. Make it a promise with a timeout default of 5 seconds. Take a query selector as a parameter.
   async function waitForElement(selector, timeout = 5000) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const observer = new MutationObserver((mutations) => {
         for (const mutation of mutations) {
           for (const node of mutation.addedNodes) {
+            if (node.nodeType !== Node.ELEMENT_NODE) continue;
             let found = node.querySelector(selector);
             if (found) {
               observer.disconnect();
@@ -48,7 +50,7 @@
       });
       setTimeout(() => {
         observer.disconnect();
-        reject(new Error(`Timeout finding ${selector}`));
+        resolve(null);
       }, timeout);
     });
   }
@@ -75,10 +77,11 @@
           '[role="button"][data-testid="confirmationSheetConfirm"]'
         )
         .click();
-      await sleep(0);
-      (
-        await waitForElement('[role="button"][data-testid="app-bar-close"]')
-      ).click();
+      const closeBtn = await waitForElement(
+        '[role="button"][data-testid="app-bar-close"]'
+      );
+      console.log(closeBtn);
+      closeBtn?.click();
     });
     return blockBtn;
   }
