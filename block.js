@@ -80,7 +80,6 @@
       const closeBtn = await waitForElement(
         '[role="button"][data-testid="app-bar-close"]'
       );
-      console.log(closeBtn);
       closeBtn?.click();
     });
     return blockBtn;
